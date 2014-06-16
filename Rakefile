@@ -66,7 +66,7 @@ CLEAN.include("tmp")
     task :fpm do
       mkdir_p "pkg"
       description_string = %Q{The Java development tools.}
-      release = ENV['GO_PIPELINE_COUNTER'] || ENV['RELEASE'] || 1
+      release = Time.now.utc.strftime('%Y%m%d%H%M%S')
       cd "pkg" do
         sh(%Q{
           bundle exec fpm -s dir -t #{distro} --name sun-java-#{version} -a x86_64 --version "#{version}" -C ../jailed-root --directories #{prefix} --verbose #{fpm_opts} --maintainer snap-ci@thoughtworks.com --vendor snap-ci@thoughtworks.com --url http://snap-ci.com --description "#{description_string}" --iteration #{release} --license 'Oracle Binary Code License Agreement' .
