@@ -26,7 +26,7 @@ CLEAN.include("tmp")
 
 {
   '1.6' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin',    :checksum => '40c1a87563c5c6a90a0ed6994615befe'},
-  '1.7' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/7u60-b19/jdk-7u60-linux-x64.tar.gz', :checksum => 'eba4b121b8a363f583679d7cb2e69d28'},
+  '1.7' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/7u72-b14/jdk-7u72-linux-x64.tar.gz', :checksum => 'cfa44b49e50ea06e5c6ab95ff79e5b2a'},
   '1.8' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz',   :checksum => 'e145c03a7edc845215092786bcfba77e'},
 }.each do |version, description|
   namespace version do
