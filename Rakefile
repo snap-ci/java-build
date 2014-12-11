@@ -25,9 +25,37 @@ CLEAN.include("pkg")
 CLEAN.include("tmp")
 
 {
-  '1.6' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin',    :checksum => '40c1a87563c5c6a90a0ed6994615befe'},
-  '1.7' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/7u72-b14/jdk-7u72-linux-x64.tar.gz', :checksum => 'cfa44b49e50ea06e5c6ab95ff79e5b2a'},
-  '1.8' => {:url => 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz',   :checksum => 'e145c03a7edc845215092786bcfba77e'},
+  '1.6' => {
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin',
+    :checksum => '40c1a87563c5c6a90a0ed6994615befe',
+    :exclude  => [
+      './man/',         # man pages
+      './db/',          # derby
+      './src.zip',      # the jdk sources
+      './lib/visualvm', # visualvm
+    ]
+  },
+  '1.7' => {
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/7u72-b14/jdk-7u72-linux-x64.tar.gz',
+    :checksum => 'cfa44b49e50ea06e5c6ab95ff79e5b2a',
+    :exclude  => [
+      './man/',         # man pages
+      './db/',          # derby
+      './src.zip',      # the jdk sources
+      './lib/visualvm', # visualvm
+    ]
+  },
+  '1.8' => {
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz',
+    :checksum => 'e145c03a7edc845215092786bcfba77e',
+    :exclude  => [
+      './man/',               # man pages
+      './db/',                # derby
+      './src.zip',            # the jdk sources
+      './lib/visualvm',       # visualvm
+      './lib/missioncontrol', # missioncontrol
+    ]
+  },
 }.each do |version, description|
   namespace version do
     prefix      = File.join("/opt/local/java", version)
@@ -35,6 +63,7 @@ CLEAN.include("tmp")
 
     url         = description[:url]
     checksum    = description[:checksum]
+    excludes    = description[:exclude]
     java_source = File.basename(url)
 
     task :init do
@@ -60,6 +89,12 @@ CLEAN.include("tmp")
       elsif java_source =~ /\.bin/
         sh("mkdir tmp; cd tmp; bash ../downloads/#{java_source}")
         sh("mv tmp/jdk*/* #{java_jailed_root}")
+      end
+
+      cd java_jailed_root do
+        excludes.each do |exclude|
+          rm_rf Dir[exclude]
+        end
       end
     end
 
