@@ -36,8 +36,8 @@ CLEAN.include("tmp")
     ]
   },
   '1.7' => {
-    :url      => 'http://download.oracle.com/otn-pub/java/jdk/7u72-b14/jdk-7u72-linux-x64.tar.gz',
-    :checksum => 'cfa44b49e50ea06e5c6ab95ff79e5b2a',
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/7u72-b14/jdk-7u75-linux-x64.tar.gz',
+    :checksum => '6f1f81030a34f7a9c987f8b68a24d139',
     :exclude  => [
       './man/',         # man pages
       './db/',          # derby
@@ -46,8 +46,8 @@ CLEAN.include("tmp")
     ]
   },
   '1.8' => {
-    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz',
-    :checksum => 'e145c03a7edc845215092786bcfba77e',
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u31-linux-x64.tar.gz',
+    :checksum => '173e24bc2d5d5ca3469b8e34864a80da',
     :exclude  => [
       './man/',               # man pages
       './db/',                # derby
