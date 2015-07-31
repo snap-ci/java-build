@@ -36,8 +36,8 @@ CLEAN.include("tmp")
     ]
   },
   '1.7' => {
-    :url      => 'http://download.oracle.com/otn-pub/java/jdk/7u75-b13/jdk-7u75-linux-x64.tar.gz',
-    :checksum => '6f1f81030a34f7a9c987f8b68a24d139',
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz',
+    :checksum => '6152f8a7561acf795ca4701daa10a965',
     :exclude  => [
       './man/',         # man pages
       './db/',          # derby
@@ -46,8 +46,8 @@ CLEAN.include("tmp")
     ]
   },
   '1.8' => {
-    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz',
-    :checksum => '173e24bc2d5d5ca3469b8e34864a80da',
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u51-b16/jdk-8u51-linux-x64.tar.gz',
+    :checksum => 'b34ff02c5d98b6f372288c17e96c51cf',
     :exclude  => [
       './man/',               # man pages
       './db/',                # derby
@@ -55,7 +55,7 @@ CLEAN.include("tmp")
       './lib/visualvm',       # visualvm
       './lib/missioncontrol', # missioncontrol
     ]
-  },
+  }
 }.each do |version, description|
   namespace version do
     prefix      = File.join("/opt/local/java", version)
@@ -67,10 +67,10 @@ CLEAN.include("tmp")
     java_source = File.basename(url)
 
     task :init do
-      mkdir_p "log"
-      mkdir_p "pkg"
-      mkdir_p "downloads"
-      mkdir_p "jailed-root"
+      mkdir_p 'log'
+      mkdir_p 'pkg'
+      mkdir_p 'downloads'
+      mkdir_p 'jailed-root'
     end
 
     task :download do
@@ -82,7 +82,7 @@ CLEAN.include("tmp")
     end
 
     task :unpack do
-      rm_rf "jailed-root"
+      rm_rf 'jailed-root'
       mkdir_p java_jailed_root
       if java_source =~ /\.tar\.gz/
         sh("tar -zxf downloads/#{java_source} -C #{java_jailed_root} --strip-components=1")
@@ -99,22 +99,22 @@ CLEAN.include("tmp")
     end
 
     task :fpm do
-      mkdir_p "pkg"
+      mkdir_p 'pkg'
       description_string = %Q{The Java development tools.}
       release = Time.now.utc.strftime('%Y%m%d%H%M%S')
-      cd "pkg" do
+      cd 'pkg' do
         sh(%Q{
           bundle exec fpm -s dir -t #{distro} --name sun-java-#{version} -a x86_64 --version "#{version}" -C ../jailed-root --directories #{prefix} --verbose #{fpm_opts} --maintainer snap-ci@thoughtworks.com --vendor snap-ci@thoughtworks.com --url http://snap-ci.com --description "#{description_string}" --iteration #{release} --license 'Oracle Binary Code License Agreement' .
         })
       end
     end
 
-    desc "build and package ruby-#{version}"
+    desc "build and package java-#{version}"
     task :all => [:clean, :init, :download, :unpack, :fpm]
   end
 
   task :default => "#{version}:all"
 end
 
-desc "build all rubies"
+desc 'build all java versions'
 task :default
