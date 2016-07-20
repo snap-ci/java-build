@@ -18,12 +18,14 @@ GEM
       ffi
       json (>= 1.7.7)
     json (1.8.3)
+    rake (11.2.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   fpm (= 1.4.0)
+  rake
 
 BUNDLED WITH
    1.12.5
