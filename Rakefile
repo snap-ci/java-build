@@ -46,8 +46,8 @@ CLEAN.include("tmp")
     ]
   },
   '1.8' => {
-    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u51-b16/jdk-8u51-linux-x64.tar.gz',
-    :checksum => 'b34ff02c5d98b6f372288c17e96c51cf',
+    :url      => 'http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz',
+    :checksum => '2d48badebe05c848cc3b4d6e0c53a457',
     :exclude  => [
       './man/',               # man pages
       './db/',                # derby
